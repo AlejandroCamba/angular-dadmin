@@ -3,7 +3,21 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiUrl: 'http://localhost:3000/api/',
+  endpoints: { // IMPORTANT TO DEFINE EVEN IF IT'S NOT USED
+    login: {
+      path: 'auth/login',
+      body: {
+        email: 'username',
+        password: 'password'
+      }
+    },
+    logout: {
+      path: 'auth/logout'
+    },
+    widthCredentials: true
+  }
 };
 
 /*

@@ -1,3 +1,9 @@
+<p align="center">
+	<img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/AlejandroCamba/ngx-admin-panel?style=plastic">
+  <img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/AlejandroCamba/ngx-admin-panel/Test%20and%20Release">
+  <img alt="GitHub" src="https://img.shields.io/github/license/AlejandroCamba/ngx-admin-panel">
+</p>
+
 # GameitempricesAdmin
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.7.

@@ -28,9 +28,16 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
-            ],
-            "scripts": []
+              "src/styles.scss",
+              "node_modules/bootstrap/dist/css/bootstrap.css",
+              "node_modules/@ngx-admin-panel/components/lib/@theme/styles/styles.scss",
+              "node_modules/eva-icons/style/scss/eva-icons.scss"
+          ],
+          "scripts": [
+              "node_modules/jquery/dist/jquery.js",
+              "node_modules/popper.js/dist/umd/popper.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.js"
+          ]
           },
           "configurations": {
             "production": {
