@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://www.api.gameitemprices.com/api',
+  apiUrl: 'https://www.api.gameitemprices.com/api/',
   endpoints: { // IMPORTANT TO DEFINE EVEN IF IT'S NOT USED
   login: {
     path: 'auth/login',
