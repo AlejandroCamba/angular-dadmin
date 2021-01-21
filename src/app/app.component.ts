@@ -54,7 +54,7 @@ const MENU_ITEMS: NbMenuItem[] = [
 ];
 
 @Component({
-    selector: 'ngx-root',
+    selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
 })

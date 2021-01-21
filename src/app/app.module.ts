@@ -3,10 +3,21 @@ import { NgModule, Injectable } from '@angular/core';
 
 import { AppComponent } from './app.component';
 
-import { TabsModule, TableModule, LoginComponent } from '@ngx-admin-panel/components';
+import {
+  TabsModule,
+  TableModule,
+  LoginComponent,
+} from '@ngx-admin-panel/components';
 import { BlockModule } from '@ngx-admin-panel/core';
 
-import { HttpClientModule } from '@angular/common/http';
+import {
+  HttpClientModule,
+  HttpEvent,
+  HttpHandler,
+  HttpInterceptor,
+  HttpRequest,
+  HTTP_INTERCEPTORS,
+} from '@angular/common/http';
 
 import { AdminAppModule, LazyLoaderService } from '@ngx-admin-panel/components';
 import { RouterModule, Router } from '@angular/router';
@@ -15,14 +26,14 @@ import { PagesModule } from './pages/pages.module';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { UsersTableLayout } from './pages/users/layout/layout.component';
 import {
-    NbCardModule,
-    NbTreeGridModule,
-    NbIconModule,
-    NbSelectModule,
-    NbInputModule,
-    NbButtonModule,
-    NbAlertModule,
-    NbCheckboxModule,
+  NbCardModule,
+  NbTreeGridModule,
+  NbIconModule,
+  NbSelectModule,
+  NbInputModule,
+  NbButtonModule,
+  NbAlertModule,
+  NbCheckboxModule,
 } from '@nebular/theme';
 import { UsersTableComponent } from './pages/users/users.component';
 import { ConsoleComponent } from './pages/simple-tables/console/console.component';
@@ -46,67 +57,88 @@ import { OrdersTableLayout } from './pages/orders/layout/layout.component';
 import { PaymentsTableComponent } from './pages/payments/payments.component';
 import { PaymentTableLayout } from './pages/payments/layout/layout.component';
 import { environment } from '../environments/environment';
+import { Observable } from 'rxjs';
 // import { LoginComponent } from './admin-auth/login/login.component';
 
+@Injectable()
+export class CustomInterceptor implements HttpInterceptor {
+  intercept(
+    request: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
+    request = request.clone({
+      withCredentials: true,
+    });
+
+    return next.handle(request);
+  }
+}
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        UsersTableComponent,
-        UsersTableLayout,
-        SimpleTablesComponent,
-        ConsoleComponent,
-        GameComponent,
-        ServerComponent,
-        ConsoleServerGameComponent,
-        PlanComponent,
-        MultiSelComponent,
-        GameItemsComponent,
-        GameItemsTableLayout,
-        SimpleTablesLayout,
-        UploadItemsTableLayout,
-        UploadPricesTableLayout,
-        UploadPricesComponent,
-        UploadItemsComponent,
-        OrdersTableComponent,
-        PaymentsTableComponent,
-        PaymentTableLayout,
-        OrdersTableLayout,
-    ] /* PASA A UN MODULO el nextpagecomponent* */,
-    imports: [
-        AdminAppRoutingModule,
-        RouterModule,
-        HttpClientModule,
-        BrowserModule,
-        BlockModule,
-        TabsModule,
-        BrowserModule,
-        AdminAppModule.forRoot(environment),
-        PagesModule,
-        Ng2SmartTableModule, // NECESARIO PARA SMART TABLES
-        NbCardModule, // NECESARIO PARA SMART TABLES
-        NbTreeGridModule, // NECESARIO PARA SMART TABLES
-        NbIconModule, // NECESARIO PARA SMART TABLES,
-        NbSelectModule,
-        NbButtonModule,
-        NbInputModule,
-        NbAlertModule,
-        TabsModule,
-        TableModule,
-        HttpModule,
-        FormsModule,
-    ],
-    entryComponents: [
-        UsersTableComponent,
-        GameItemsComponent,
-        UploadPricesComponent,
-        UploadItemsComponent,
-        SimpleTablesComponent,
-        OrdersTableComponent,
-        PaymentsTableComponent,
-        MultiSelComponent
-    ],
-    providers: [LazyLoaderService],
-    bootstrap: [AppComponent],
+  declarations: [
+    AppComponent,
+    UsersTableComponent,
+    UsersTableLayout,
+    SimpleTablesComponent,
+    ConsoleComponent,
+    GameComponent,
+    ServerComponent,
+    ConsoleServerGameComponent,
+    PlanComponent,
+    MultiSelComponent,
+    GameItemsComponent,
+    GameItemsTableLayout,
+    SimpleTablesLayout,
+    UploadItemsTableLayout,
+    UploadPricesTableLayout,
+    UploadPricesComponent,
+    UploadItemsComponent,
+    OrdersTableComponent,
+    PaymentsTableComponent,
+    PaymentTableLayout,
+    OrdersTableLayout,
+  ] /* PASA A UN MODULO el nextpagecomponent* */,
+  imports: [
+    AdminAppRoutingModule,
+    RouterModule,
+    HttpClientModule,
+    BrowserModule,
+    BlockModule,
+    TabsModule,
+    BrowserModule,
+    AdminAppModule.forRoot(environment),
+    PagesModule,
+    Ng2SmartTableModule, // NECESARIO PARA SMART TABLES
+    NbCardModule, // NECESARIO PARA SMART TABLES
+    NbTreeGridModule, // NECESARIO PARA SMART TABLES
+    NbIconModule, // NECESARIO PARA SMART TABLES,
+    NbSelectModule,
+    NbButtonModule,
+    NbInputModule,
+    NbAlertModule,
+    TabsModule,
+    TableModule,
+    HttpModule,
+    FormsModule,
+  ],
+  entryComponents: [
+    UsersTableComponent,
+    GameItemsComponent,
+    UploadPricesComponent,
+    UploadItemsComponent,
+    SimpleTablesComponent,
+    OrdersTableComponent,
+    PaymentsTableComponent,
+    MultiSelComponent,
+  ],
+  providers: [
+    LazyLoaderService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: CustomInterceptor,
+      multi: true,
+    },
+  ],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
